@@ -10,12 +10,12 @@ const Alert = () => {
     <div className="alert-danger">
       <div className="alert-header">
         <div className="title">
-          <span>
-            <BellRing />
+          <span className="icon-wrapper">
+            <BellRing className="bell-icon" />
           </span>
-          <h4>Alert Title</h4>
+          <h4 className="alert-title">Alert Title</h4>
         </div>
-        <X />
+        <X className="close-icon" />
       </div>
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero vel

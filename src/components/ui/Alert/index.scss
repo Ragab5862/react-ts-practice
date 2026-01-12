@@ -2,13 +2,67 @@ $borderColor: rgba(255, 25, 0, 0.322);
 $errorbg: rgba(192, 29, 29, 0.15);
 $errorColor: #ef8d8dfa;
 
+// Animations
+@keyframes bellRing {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: rotate(-10deg);
+    }
+    20%, 40%, 60%, 80% {
+        transform: rotate(10deg);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        text-shadow: 0 0 5px rgba(239, 141, 141, 0.5),
+                     0 0 10px rgba(239, 141, 141, 0.3),
+                     0 0 15px rgba(239, 141, 141, 0.2);
+    }
+    50% {
+        text-shadow: 0 0 10px rgba(239, 141, 141, 0.8),
+                     0 0 20px rgba(239, 141, 141, 0.5),
+                     0 0 30px rgba(239, 141, 141, 0.3);
+    }
+}
+
 .alert-danger {
     border: 2px dotted $borderColor;
     border-radius: 0.8rem;
     padding: 1.3rem;
-    padding: 1.3rem;
     background-color: $errorbg;
     color: $errorColor;
+    animation: slideIn 0.5s ease-out;
+    transition: all 0.3s ease;
+    
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(192, 29, 29, 0.3);
+    }
 }
 
 .alert-header {
@@ -18,16 +72,88 @@ $errorColor: #ef8d8dfa;
 
     .title {
         display: flex;
-        // align-items: center;
-    }
-    span svg{
-        margin-right: 0.8rem;
+        align-items: center;
+        gap: 0.8rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
         
+        &:hover {
+            transform: scale(1.05);
+            
+            .alert-title {
+                animation: glow 1.5s ease-in-out infinite;
+            }
+            
+            .icon-wrapper {
+                animation: bellRing 0.5s ease-in-out;
+            }
+        }
+    }
+    
+    .icon-wrapper {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        animation: pulse 2s ease-in-out infinite;
+        transition: all 0.3s ease;
+        
+        .bell-icon {
+            margin-right: 0;
+            transition: all 0.3s ease;
+        }
+        
+        &:hover .bell-icon {
+            transform: scale(1.2);
+            color: #ff4444;
+        }
+    }
+    
+    .alert-title {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: 600;
+        background: linear-gradient(135deg, #ef8d8dfa 0%, #ff6b6b 50%, #f3ececfa 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: glow 2s ease-in-out infinite;
+        transition: all 0.3s ease;
+        position: relative;
+        
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b6b, #ef8d8dfa);
+            transition: width 0.3s ease;
+        }
+    }
+    
+    .title:hover .alert-title::after {
+        width: 100%;
+    }
+    
+    .close-icon {
+        cursor: pointer;
+        transition: all 0.3s ease;
+        opacity: 0.7;
+        
+        &:hover {
+            transform: rotate(90deg) scale(1.2);
+            opacity: 1;
+            color: #ff4444;
+        }
     }
 }
-p{
+
+p {
     font-size: 0.6rem;
     font-weight: 500;
     line-height: 1.5rem;
     margin-top: 1.2rem;
+    animation: slideIn 0.6s ease-out 0.2s both;
 }
